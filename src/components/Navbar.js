@@ -1,7 +1,10 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Link,useNavigate} from "react-router-dom"
-
+import Badge from 'react-bootstrap/Badge';
+import Modal from '../Modal';
+import Cart from '../screens/Cart';
 export default function Navbar() {
+  const [cartView,setCartView]=useState(false);
 
   const navigate=useNavigate();
   const handleLogout=()=>{
@@ -43,7 +46,12 @@ export default function Navbar() {
       <Link className="btn bg-white text-success mx-1" to="/createuser">SignUp</Link>
         </div>  : 
           <div>
-          <div className='btn bg-white text-success mx-1'>My Cart</div>
+          <div className='btn bg-white text-success mx-1' onClick={()=>{setCartView(true)}}>
+          
+          My Cart {" "}
+          <Badge pill bg="danger"></Badge>
+          </div>
+          {cartView?<Modal onClose={()=>setCartView(false)}><Cart /></Modal>:null}
           <div className='btn bg-white text-success mx-1' onClick={handleLogout}> Logout </div>
 
           </div>
